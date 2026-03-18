@@ -369,6 +369,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sourceacademy/conductor@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@sourceacademy/conductor@workspace:."
+  dependencies:
+    "@rollup/plugin-node-resolve": "npm:^16.0.0"
+    "@rollup/plugin-terser": "npm:^0.4.4"
+    "@rollup/plugin-typescript": "npm:^12.1.2"
+    glob: "npm:^11.0.1"
+    rollup: "npm:^4.34.1"
+    rollup-plugin-modify: "npm:^3.0.0"
+    tslib: "npm:^2.8.1"
+    typescript: "npm:^5.5.3"
+  languageName: unknown
+  linkType: soft
+
 "@types/estree@npm:1.0.8":
   version: 1.0.8
   resolution: "@types/estree@npm:1.0.8"
@@ -532,21 +547,6 @@ __metadata:
   checksum: 10c0/c996b1cfdf95b6c90fee4dae37e332c8b6eb7d106430c17d538034c0ad9a1630cb194d2ab37293b1bdd4d779494beee7786d586a50bd9376fd6f7bcc2bd4c98f
   languageName: node
   linkType: hard
-
-"conductor@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "conductor@workspace:."
-  dependencies:
-    "@rollup/plugin-node-resolve": "npm:^16.0.0"
-    "@rollup/plugin-terser": "npm:^0.4.4"
-    "@rollup/plugin-typescript": "npm:^12.1.2"
-    glob: "npm:^11.0.1"
-    rollup: "npm:^4.34.1"
-    rollup-plugin-modify: "npm:^3.0.0"
-    tslib: "npm:^2.8.1"
-    typescript: "npm:^5.5.3"
-  languageName: unknown
-  linkType: soft
 
 "cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.6":
   version: 7.0.6
