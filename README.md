@@ -13,6 +13,36 @@ Source Academy standard communication interface for languages
 - Plugin: A program that provides additional functionality, loaded on demand;
   it may receive communications and communicate on declared Channels.
 
+## Quick Start Guide
+To run an evaluator using conductor using the frontend UI, follow these steps.
+
+If your evaluator has been deployed to the [`language-directory`](https://github.com/source-academy/language-directory):
+1. In the top right dropdown of the frontend UI, click Settings > Feature Flags
+2. Enable the conductor.enable feature flag
+3. If your language has been properly deployed, it will appear in the language dropdown in the top right
+4. Select your language. It will now be run using conductor.
+
+If your evaluator has not been deployed to the [`language-directory`](https://github.com/source-academy/language-directory):
+1. In `src/commons/featureFlags/publicFlags.ts` the frontend repository, add these lines:
+   - At the top of the file, add `import { flagConductorEvaluatorUrl } from 'src/features/conductor/flagConductorEvaluatorUrl';`
+   - in the publicFlags array, add `flagConductorEvaluatorUrl`
+2. In the top right dropdown of the frontend UI, click Settings > Feature Flags
+3. Enable the conductor.enable feature flag
+4. If your evaluator is hosted remotely, in the conductor.evaluator.url flag, input your evaluator's URL
+5. If your evaluator is hosted locally, place your evaluator in `public/evaluators`. in the conductor.evaluator.url flag, input `/evlauator/YOUR_EVALUATOR.js`
+6. The front end REPL will now run your evaluator using conductor
+
+
+**For frontend developers:**
+Load conductor from the GitHub repository rather than from npm. The GitHub source is the intended distribution source for this project:
+```json
+  "dependencies": {
+    ...
+    "conductor": "https://github.com/source-academy/conductor.git#0.3.0",
+     ...
+  }, ...
+```
+
 ## Implementing a new language
 
 To get started, use the `conductor-runner-example` template. It contains a basic evaluator that calls Javascript's `eval` on the provided chunks.
@@ -38,6 +68,15 @@ Your implementation should be bundled using this file as the bundler's entry poi
 This is used by the host to locate your runner and execute it.
 It should contain things like the path to your entry point, editor information, and other information about your language.
 Consult [`language-directory` repository](https://github.com/source-academy/language-directory) for more information.
+
+### Sending messages
+To send messages between the runner and host, use these methods:
+
+- `sendResult(result)` — sends evaluation results over the `__result` channel.
+- `sendError(error)` — sends errors over the `__error` channel.
+- `sendOutput(message)` — sends standard output/log messages over the `__stdio` channel.
+
+These methods are available on the relevant runner plugin classes. Call the messaging methods on the plugin instance you receive in your evaluator or plugin code.
 
 ## Module interface
 
@@ -94,3 +133,12 @@ Upon registration of the Plugin with the Conduit, the class' constructor will be
 
 Most Plugins will not require the first argument, the `Conduit` instance. This is provided for the ability to
 load other Plugins as needed, as well as to communicate between Plugins.
+
+## Message Channels
+
+The host (i.e., the frontend REPL) formats messages differently depending on the channel:
+- Errors (from `__error`) appear in red. Used to send error messages.
+- Output (from `__stdio`) appear in orange. Used to send IO messages (e.g. display calls).
+- Results (from `__result`) appear in the default color. Used to display program return results.
+
+If you are implementing your own `RunnerPlugin` (or similar plugin), you should use the `__result`, `__error`, and `__stdio` channels for results, errors, and output respectively to ensure compatibility with the host and consistent REPL formatting.
