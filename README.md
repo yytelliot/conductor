@@ -109,7 +109,7 @@ as it is not possible for the data type to be retrieved from a raw Identifier.
 
 ### Communication interface
 
-In order to be language and evaluator-agnostic, modules will make no assumptionsi about the memory model of evaluators.
+In order to be language and evaluator-agnostic, modules will make no assumptions about the memory model of evaluators.
 Thus, evaluators are responsible for providing functions to allow modules to read, manipulate, and create data.
 
 Each of the data types passed as identifier have functions to create an instance of that data type,
