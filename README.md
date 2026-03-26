@@ -14,7 +14,7 @@ Source Academy standard communication interface for languages
   it may receive communications and communicate on declared Channels.
 
 ## Quick Start Guide
-To run an evaluator using conductor using the frontend UI, follow these steps.
+To run an evaluator using conductor in the frontend UI, follow these steps.
 
 If your evaluator has been deployed to the [`language-directory`](https://github.com/source-academy/language-directory):
 1. In the top right dropdown of the frontend UI, click Settings > Feature Flags
@@ -23,14 +23,14 @@ If your evaluator has been deployed to the [`language-directory`](https://github
 4. Select your language. It will now be run using conductor.
 
 If your evaluator has not been deployed to the [`language-directory`](https://github.com/source-academy/language-directory):
-1. In `src/commons/featureFlags/publicFlags.ts` the frontend repository, add these lines:
+1. In `src/commons/featureFlags/publicFlags.ts` in the frontend repository, add these lines:
    - At the top of the file, add `import { flagConductorEvaluatorUrl } from 'src/features/conductor/flagConductorEvaluatorUrl';`
    - in the publicFlags array, add `flagConductorEvaluatorUrl`
 2. In the top right dropdown of the frontend UI, click Settings > Feature Flags
 3. Enable the conductor.enable feature flag
 4. If your evaluator is hosted remotely, in the conductor.evaluator.url flag, input your evaluator's URL
-5. If your evaluator is hosted locally, place your evaluator in `public/evaluators`. in the conductor.evaluator.url flag, input `/evlauator/YOUR_EVALUATOR.js`
-6. The front end REPL will now run your evaluator using conductor
+5. If your evaluator is hosted locally, place your evaluator in `public/evaluators`. In the conductor.evaluator.url flag, input `/evaluators/YOUR_EVALUATOR.js`
+6. The frontend REPL will now run your evaluator using conductor.
 
 
 **For frontend developers:**
@@ -96,7 +96,7 @@ Note that all identifiers across data types must be unique - in other words, a r
 | pair         | Identifier |                                                               |
 | array        | Identifier | Arrays are singly-typed                                       |
 | closure      | Identifier | Closures have fixed arity                                     |
-| opaque       | Identifier | For values that can manipulated only by modules (e.g. a Rune) |
+| opaque       | Identifier | For values that can be manipulated only by modules (e.g. a Rune) |
 | list         | see notes  | Either a Pair (passed by identifier) or empty list (null\*)   |
 
 \* as a convention, `undefined` is passed as the JS value for void type, and `null` is passed as the JS value for empty list type,
@@ -109,7 +109,7 @@ as it is not possible for the data type to be retrieved from a raw Identifier.
 
 ### Communication interface
 
-In order to be language and evaluator-agnostic, modules will make no assumptions about the memory model of evaluators.
+In order to be language and evaluator-agnostic, modules will make no assumptionsi about the memory model of evaluators.
 Thus, evaluators are responsible for providing functions to allow modules to read, manipulate, and create data.
 
 Each of the data types passed as identifier have functions to create an instance of that data type,
